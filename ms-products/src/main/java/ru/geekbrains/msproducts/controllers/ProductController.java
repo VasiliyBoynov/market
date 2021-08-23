@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
-import ru.geekbrains.corelib.exceptions.ResourceNotFoundException;
+import ru.geekbrains.exceptions.ResourceNotFoundException;
 import ru.geekbrains.msproducts.model.dtos.ProductDto;
 import ru.geekbrains.msproducts.model.entities.Product;
 import ru.geekbrains.msproducts.repositories.specifications.ProductSpecifications;

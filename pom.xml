@@ -28,6 +28,7 @@
         <!--  Microservices  -->
 
         <module>ms-products</module>
+        <module>ms-auth</module>
 
     </modules>
 
