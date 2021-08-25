@@ -1,9 +1,8 @@
-package ru.geekbrains.corelib.configurations;
+package ru.geekbrains.corelib.configurations.jwt;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -13,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import ru.geekbrains.corelib.dtos.UserInfo;
+import ru.geekbrains.corelib.repository.RedisRepository;
 
 import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +26,9 @@ import java.util.List;
 public class JWTAuthenticationFilter extends OncePerRequestFilter {
     @Autowired
     private final JWTConsumer tokenService;
+
+    @Autowired
+    private RedisRepository redisRepository;
 
 
     @SneakyThrows
@@ -48,7 +51,8 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
 
     private boolean authorizationHeaderIsInvalid(String authorizationHeader) {
         return authorizationHeader == null
-                || !authorizationHeader.startsWith("Bearer ");
+                || !authorizationHeader.startsWith("Bearer ")
+                || redisRepository.findToken(authorizationHeader.replace("Bearer ", ""));
     }
 
     private UsernamePasswordAuthenticationToken createToken(String authorizationHeader) throws ExpiredJwtException {

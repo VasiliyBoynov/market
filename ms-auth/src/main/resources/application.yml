@@ -1,5 +1,7 @@
 server:
   port: 0
+  jwt:
+    secret: test_secret_string
 spring:
    datasource:
       driver-class-name: org.h2.Driver
