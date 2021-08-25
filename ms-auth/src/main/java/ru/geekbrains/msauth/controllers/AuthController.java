@@ -2,11 +2,10 @@ package ru.geekbrains.msauth.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import ru.geekbrains.corelib.configurations.rediseBean.RediseDB;
+import ru.geekbrains.corelib.repository.RedisRepository;
 import ru.geekbrains.msauth.dtos.AuthRequestDto;
 import ru.geekbrains.msauth.dtos.AuthResponseDto;
 import ru.geekbrains.msauth.dtos.UserDto;
@@ -25,6 +24,9 @@ public class AuthController {
     @Autowired
     private JwtProducer jwtProducer;
 
+    @Autowired
+    private RedisRepository redisRepository;
+
     @PostMapping("/signup")
     public HttpStatus registerUser(@RequestBody AuthRequestDto signUpRequest) {
         UserDto user = new UserDto();
@@ -41,4 +43,12 @@ public class AuthController {
         String token = jwtProducer.generateToken(user);
         return new AuthResponseDto(token);
     }
+
+    @GetMapping("/logout")
+    public Boolean logout(@RequestHeader("Authorization") String token) {
+        redisRepository.saveToken(token);
+        return true;
+    }
+
+
 }

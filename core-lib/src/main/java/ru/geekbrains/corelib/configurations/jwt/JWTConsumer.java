@@ -1,4 +1,4 @@
-package ru.geekbrains.corelib.configurations;
+package ru.geekbrains.corelib.configurations.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
