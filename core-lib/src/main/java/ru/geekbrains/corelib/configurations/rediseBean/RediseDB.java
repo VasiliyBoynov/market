@@ -8,7 +8,7 @@ import redis.clients.jedis.JedisPool;
 
 @Component
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class RediseDB extends JedisPool {
+
 }

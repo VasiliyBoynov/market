@@ -52,7 +52,7 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
     private boolean authorizationHeaderIsInvalid(String authorizationHeader) {
         return authorizationHeader == null
                 || !authorizationHeader.startsWith("Bearer ")
-                || redisRepository.findToken(authorizationHeader.replace("Bearer ", ""));
+                || redisRepository.findToken(authorizationHeader);
     }
 
     private UsernamePasswordAuthenticationToken createToken(String authorizationHeader) throws ExpiredJwtException {
