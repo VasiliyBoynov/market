@@ -46,7 +46,7 @@ public class AuthController {
 
     @GetMapping("/logout")
     public Boolean logout(@RequestHeader("Authorization") String token) {
-        redisRepository.saveToken(token);
+        redisRepository.saveToken(token,3600);
         return true;
     }
 

@@ -1,5 +1,6 @@
 package ru.geekbrains.msproducts.model.dtos;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.geekbrains.msproducts.model.entities.Product;
